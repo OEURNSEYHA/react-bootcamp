@@ -1,13 +1,15 @@
 
 import './App.css'
-import ContainPage from './component/ContainPage'
+import FormSignIn from './component/FormSignIn'
+// import ContainPage from './component/ContainPage'
 
 function App() {
   
 
   return (
     <>
-      <ContainPage/>
+      {/* <ContainPage/> */}
+     <FormSignIn/>
     </>
   )
 }
