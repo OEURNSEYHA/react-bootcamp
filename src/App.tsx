@@ -1,17 +1,16 @@
-
-import './App.css'
-import FormSignIn from './component/FormSignIn'
-// import ContainPage from './component/ContainPage'
+import "./App.css";
+import Header from "./component/templates/Header";
+import ChromeDownload from "./pages/ChromeDownload";
 
 function App() {
-  
-
   return (
     <>
-      {/* <ContainPage/> */}
-     <FormSignIn/>
+      {/* component header */}
+      <Header />
+      {/* wrap page chrome download */}
+      <ChromeDownload />
     </>
-  )
+  );
 }
 
-export default App
+export default App;
