@@ -1,43 +1,13 @@
-import React, { useState, ChangeEvent } from 'react';
-
-interface UserHistoryItem {
-  id: number;
-  name: string;
-  date: string;
-}
-
 const ContainPage: React.FC = () => {
-  const [userHistory, setUserHistory] = useState<UserHistoryItem[]>([
-    { id: 1, name: 'seyha', date: '2024-04-30' },
-    { id: 2, name: 'john', date: '2024-04-29' },
-    { id: 3, name: 'alice', date: '2024-04-30' },
-    { id: 4, name: 'bob', date: '2024-04-30' }
-  ]);
+ 
 
-  const [searchTerm, setSearchTerm] = useState<string>('');
 
-  // Filter user history by name
-  const filteredHistory = userHistory.filter(item =>
-    item.name.toLowerCase().includes(searchTerm.toLowerCase())
-  );
 
-  // Group filtered history by date
-  const groupedHistory: Record<string, UserHistoryItem[]> = filteredHistory.reduce((acc, currentItem) => {
-    const date = currentItem.date;
-    if (!acc[date]) {
-      acc[date] = [];
-    }
-    acc[date].push(currentItem);
-    return acc;
-  }, {});
-
-  const handleSearchChange = (event: ChangeEvent<HTMLInputElement>) => {
-    setSearchTerm(event.target.value);
-  };
 
   return (
     <>
       <header>
+  
         <div className="content-header">
           <div className="logo">
             <img
@@ -79,7 +49,6 @@ const ContainPage: React.FC = () => {
             </div>
           ))}
         </div>
-
       </section>
     </>
   );
