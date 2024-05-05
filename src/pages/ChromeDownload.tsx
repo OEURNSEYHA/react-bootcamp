@@ -1,5 +1,5 @@
 import { useState } from "react";
-import Card from "../component/organisms/Card";
+import Card from "../component/organisms/card-chrom-dowload/Card";
 import Popup from "../component/Popup";
 import PopupConfirmDelete from "../component/PopupConfirmDelete";
 export interface dataType {
@@ -23,31 +23,26 @@ function ChromeDownload() {
   const [isPopup, setIsPopup] = useState<boolean>(false);
   const [isMatch, setIsMatch] = useState<boolean>(false);
   const [datas, setDatas] = useState<dataType[]>(data);
-  const [search, setSearchDAta] = useState<string>("")
+  const [search, setSearchDAta] = useState<string>("");
+  const [flexibleButton, setFlexibleButton] = useState<string>("Create");
   console.log(isMatch);
   const addNewItem = (newItem: dataType) => {
     setDatas([...datas, newItem]);
   };
 
-
-
-  
-   // function to handle location filter using search value
-   const filterLocation = () => {
+  // function to handle location filter using search value
+  const filterLocation = () => {
     let filteredLocation = datas;
     // filter location
     if (search !== "") {
       filteredLocation = filteredLocation.filter((item) =>
-        item.creator
-          .toLocaleLowerCase()
-          .includes(search.toLocaleLowerCase())
+        item.creator.toLocaleLowerCase().includes(search.toLocaleLowerCase())
       );
     }
     return filteredLocation;
   };
 
   const filterLocations = filterLocation();
-
 
   // Function to delete an existing item
   const deleteItem = (
@@ -64,7 +59,6 @@ function ChromeDownload() {
   };
   return (
     <>
-     
       <section className="wrap-page">
         <div style={{ display: "flex" }}>
           <div
@@ -76,7 +70,7 @@ function ChromeDownload() {
           Your <a href=""> Profile is managed </a>by sabaicode.com
         </div>
 
-        <div className="content-item">
+        <div className="w-[670px] mt-5">
           <div key={""} className="box-item">
             {filterLocations.map((item, key) => (
               <Card
@@ -95,15 +89,15 @@ function ChromeDownload() {
         className="absolute bottom-5 right-5 text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-sm px-5 py-2.5 text-center me-2 mb-2"
         onClick={() => setIsPopup(true)}
       >
-        Create New +
+        {flexibleButton}
       </button>
 
-      {isPopup && <Popup setIsPopup={setIsPopup} addNewItem={addNewItem} />}
+      {isPopup && <Popup  props={ { setIsPopup: setIsPopup, addNewItem: addNewItem  }}  />}
       {isMatch && (
         <PopupConfirmDelete setIsMatch={setIsMatch} deleteItem={deleteItem} />
       )}
     </>
   );
-};
+}
 
 export default ChromeDownload;
