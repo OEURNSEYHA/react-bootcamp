@@ -3,18 +3,19 @@ import { RxCross2 } from "react-icons/rx";
 import { dataType } from "../pages/ChromeDownload";
 
 interface PopupProps {
-  setIsPopup: (isPopup: boolean) => void;
-  addNewItem: (newItem: dataType) => void;
+  props: {
+    setIsPopup: (isPopup: boolean) => void;
+    addNewItem: (newItem: dataType) => void;
+  };
 }
 
-export default function Popup({
-  setIsPopup,
-  addNewItem,
-}: PopupProps): JSX.Element {
+export default function Popup({ props }: PopupProps): JSX.Element {
   const [creator, setCreator] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const [fileImage, setFileImage] = useState<string>("");
   const [deleteConfirmation, setDeleteConfirmation] = useState<string>("");
+  const addNewItems = props.addNewItem;
+  const setIsPopups = props.setIsPopup;
 
   const getCurrentDate = (): string => {
     const now = new Date();
@@ -49,8 +50,8 @@ export default function Popup({
   };
 
   const handleSubmit = () => {
-    addNewItem({ creator, fileName, fileImage, date: getCurrentDate() });
-    setIsPopup(false);
+    addNewItems({ creator, fileName, fileImage, date: getCurrentDate() });
+    setIsPopups(false);
     // Reset input values after submission
     setCreator("");
     setFileName("");
@@ -61,11 +62,14 @@ export default function Popup({
     <>
       <div
         className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center"
-        onClick={() => setIsPopup(false)}
+        onClick={() => setIsPopups(false)}
       ></div>
       <div className="absolute top-[50%] left-[50%] transform -translate-x-1/2 -translate-y-1/2 shadow-lg bg-white rounded-lg p-6">
         <div
-          onClick={() => setIsPopup(false)}
+          onClick={() => {
+            setIsPopups(false);
+            alert("hello");
+          }}
           className="absolute top-3 right-3 w-6 h-6 cursor-pointer"
         >
           <RxCross2 />
