@@ -40,6 +40,10 @@ export default function PopupConfirmDelete({
               className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
             />
           </div>
+          <div className="flex justify-end gap-5">
+    <button className=" bg-orange-300 px-3 py-1 rounded-[25px] text-white"> Cancel</button>
+    <button className=" bg-red-400 px-3 py-1 rounded-[25px] text-white"> Delete</button>
+          </div>
         </form>
       </div>
     </>
