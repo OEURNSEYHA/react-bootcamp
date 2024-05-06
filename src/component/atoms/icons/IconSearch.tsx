@@ -5,7 +5,6 @@ interface props {
 }
 
 function IconSearch({ prop }: props) {
-    console.log(prop)
   return (
     <>
       <IoIosSearch className={prop} />
