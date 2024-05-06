@@ -1,11 +1,11 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { dataType } from "../pages/ChromeDownload";
-
 interface PopupProps {
   props: {
     setIsPopup: (isPopup: boolean) => void;
     addNewItem: (newItem: dataType) => void;
+    data: dataType[];
   };
 }
 
@@ -13,7 +13,6 @@ export default function Popup({ props }: PopupProps): JSX.Element {
   const [creator, setCreator] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const [fileImage, setFileImage] = useState<string>("");
-  const [deleteConfirmation, setDeleteConfirmation] = useState<string>("");
   const addNewItems = props.addNewItem;
   const setIsPopups = props.setIsPopup;
 
@@ -30,17 +29,19 @@ export default function Popup({ props }: PopupProps): JSX.Element {
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
-
     if (file) {
+      // Check if the file size is greater than or equal to 2MB
+      if (file.size >= 2 * 1024 * 1024) {
+        // 2MB in bytes
+        // Handle the case where the file size exceeds 2MB
+        alert("File size exceeds 2MB. Please select a smaller file.");
+        return;
+      }
+
       const reader = new FileReader();
       reader.onloadend = () => {
         setFileImage(reader.result as string); // Set Base64 encoded data (type casting)
         // Extract filename from the fileImage URL and set it as the fileName
-        const urlParts = reader.result?.toString().split("/");
-        if (urlParts && urlParts.length > 0) {
-          const filename = urlParts[urlParts.length - 1];
-          setFileName(filename);
-        }
       };
       reader.readAsDataURL(file);
     } else {
@@ -50,12 +51,25 @@ export default function Popup({ props }: PopupProps): JSX.Element {
   };
 
   const handleSubmit = () => {
-    addNewItems({ creator, fileName, fileImage, date: getCurrentDate() });
-    setIsPopups(false);
-    // Reset input values after submission
-    setCreator("");
-    setFileName("");
-    setFileImage("");
+    const data = props.data;
+    const id = data.length + 1;
+    if (creator === "") {
+      alert("please input creator");
+      return;
+    } else if (fileName === "") {
+      alert("please input filename");
+      return;
+    } else if (fileImage === "" || fileImage === null) {
+      alert("please select image ");
+      return;
+    } else {
+      addNewItems({ id, creator, fileName, fileImage, date: getCurrentDate() });
+      setIsPopups(false);
+      // Reset input values after submission
+      setCreator("");
+      setFileName("");
+      setFileImage("");
+    }
   };
 
   return (
@@ -95,6 +109,24 @@ export default function Popup({ props }: PopupProps): JSX.Element {
             />
           </div>
           <div>
+            <label
+              htmlFor="creator"
+              className="block font-medium text-gray-900"
+            >
+              File Name
+            </label>
+            <input
+              id="fileName"
+              name="fileName"
+              type="text"
+              autoComplete="off"
+              required
+              value={fileName}
+              onChange={(e) => setFileName(e.target.value)}
+              className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+            />
+          </div>
+          <div>
             <label htmlFor="image" className="block font-medium text-gray-900">
               Choose Image
             </label>
@@ -125,25 +157,6 @@ export default function Popup({ props }: PopupProps): JSX.Element {
             </button>
           </div>
         </form>
-        {fileName && (
-          <div className="mt-4">
-            <label
-              htmlFor="deleteConfirmation"
-              className="block font-medium text-gray-900"
-            >
-              Confirm deletion by typing filename ({fileName})
-            </label>
-            <input
-              id="deleteConfirmation"
-              name="deleteConfirmation"
-              type="text"
-              autoComplete="off"
-              value={deleteConfirmation}
-              onChange={(e) => setDeleteConfirmation(e.target.value)}
-              className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
-            />
-          </div>
-        )}
       </div>
     </>
   );
