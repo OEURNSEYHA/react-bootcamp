@@ -1,12 +1,26 @@
 import { RxCross2 } from "react-icons/rx";
-
+import { dataType } from "../pages/ChromeDownload";
+import { useState } from "react";
 interface PopupProps {
   setIsMatch: (isMatch: boolean) => void;
+  deleteItem: (index: number, deleteFilename: string, fileName: string) => void;
+  data: dataType[];
+  id: number | undefined;
 }
 
 export default function PopupConfirmDelete({
   setIsMatch,
+  deleteItem,
+  data,
+  id,
 }: PopupProps): JSX.Element {
+  const [fileNameDelete, setFileNameDelete] = useState<string>("");
+  const filteredFileNames = data.filter(
+    (item) => item.fileName === fileNameDelete
+  );
+  const fileName: string | undefined =
+    filteredFileNames.length > 0 ? filteredFileNames[0].fileName : undefined;
+
   return (
     <>
       <div
@@ -38,11 +52,26 @@ export default function PopupConfirmDelete({
               autoComplete="off"
               required
               className="block w-full rounded-md border-gray-300 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 sm:text-sm"
+              onChange={(e) => setFileNameDelete(e.target.value)}
             />
           </div>
           <div className="flex justify-end gap-5">
-    <button className=" bg-orange-300 px-3 py-1 rounded-[25px] text-white"> Cancel</button>
-    <button className=" bg-red-400 px-3 py-1 rounded-[25px] text-white"> Delete</button>
+            <button
+              className=" bg-orange-300 px-3 py-1 rounded-[25px] text-white"
+              onClick={() => setIsMatch(false)}
+            >
+              Cancel
+            </button>
+            <button
+              type="button"
+              onClick={() => {
+                id !== undefined && deleteItem(id, fileNameDelete, fileName);
+                setIsMatch(false);
+              }}
+              className=" bg-red-400 px-3 py-1 rounded-[25px] text-white"
+            >
+              Delete
+            </button>
           </div>
         </form>
       </div>
