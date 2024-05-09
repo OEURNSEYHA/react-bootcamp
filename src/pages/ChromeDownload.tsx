@@ -20,6 +20,7 @@ export interface verifyDelete {
 // creator > 3 charater
 
 function ChromeDownload() {
+
   const [isPopup, setIsPopup] = useState<boolean>(false);
   const [isMatch, setIsMatch] = useState<boolean>(false);
   const [datas, setDatas] = useState<dataType[]>([]);
@@ -27,6 +28,7 @@ function ChromeDownload() {
   const [catchId, setCatchId] = useState<number | undefined>();
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [isPopupEdit, setIsPopupEdit] = useState<boolean>(false);
+  
   const addNewItem = (newItem: dataType) => {
     const newId = datas.length + 1;
     const newItemWithId = { ...newItem, id: newId };

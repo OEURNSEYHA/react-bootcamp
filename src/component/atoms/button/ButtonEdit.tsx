@@ -10,7 +10,6 @@ function ButtonEdit({ setIsUpdate, setCatchId, id }: propsType) {
       className=" cursor-pointer px-2 hover:bg-green-300 hover:text-white w-full"
       onClick={() => {
         setIsUpdate(true);
-
         setCatchId(id);
       }}
     >

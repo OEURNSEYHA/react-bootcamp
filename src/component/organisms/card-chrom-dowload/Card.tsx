@@ -10,9 +10,9 @@ interface CardProps {
     fileName: string;
     fileImage: string;
     date: string;
-    setIsMatch: (isMatch: boolean) => void,
-    setCatchId: (catchId: number) => void
-    setIsUpdate: (isUpdate: boolean) => void
+    setIsMatch: (isMatch: boolean) => void;
+    setCatchId: (catchId: number) => void;
+    setIsUpdate: (isUpdate: boolean) => void;
   };
 }
 
@@ -40,12 +40,16 @@ function Card({ props }: CardProps) {
         </div>
         {isSetting && (
           <div className=" absolute right-5 top-10 bg-gray-300 rounded-md overflow-hidden flex flex-col justify-start items-start">
-            <ButtonEdit setIsUpdate = { setIsUpdate}  setCatchId = {setCatchId} id={props.id}/>
+            <ButtonEdit
+              setIsUpdate={setIsUpdate}
+              setCatchId={setCatchId}
+              id={props.id}
+            />
             <ButtonDelete
-            setIsMatch={setIsMatch}
-            setCatchId = {setCatchId}
-            id={ props.id}
-            // setVerifyDelete={setVerifyDeletes}
+              setIsMatch={setIsMatch}
+              setCatchId={setCatchId}
+              id={props.id}
+              // setVerifyDelete={setVerifyDeletes}
             />
           </div>
         )}

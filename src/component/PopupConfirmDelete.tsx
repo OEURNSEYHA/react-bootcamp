@@ -16,10 +16,13 @@ export default function PopupConfirmDelete({
 }: PopupProps): JSX.Element {
   const [fileNameDelete, setFileNameDelete] = useState<string>("");
   const filteredFileNames = data.filter(
-    (item) => item.fileName === fileNameDelete
+    (item) => item.id === id
   );
-  const fileName: string | undefined =
-    filteredFileNames.length > 0 ? filteredFileNames[0].fileName : undefined;
+  console.log(filteredFileNames)
+  const fileName: string | "" =
+    filteredFileNames.length > 0 ? filteredFileNames[0].fileName :  "";
+    console.log(fileName)
+    console.log(id)
 
   return (
     <>

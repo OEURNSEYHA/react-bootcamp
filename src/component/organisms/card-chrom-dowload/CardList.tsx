@@ -10,6 +10,7 @@ export interface CardListProps {
   };
 }
 
+
 function CardList({ props }: CardListProps) {
  const data = props.data;
  const handleSetIsMatch = props.setIsMatch;
