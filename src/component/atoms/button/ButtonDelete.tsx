@@ -1,10 +1,15 @@
+import { ThemProvider } from "../../../utils/ThemProvider";
+
 interface props {
   setIsMatch: (isMatch: boolean)=> void
-  setCatchId: (catchId: number)=> void
   id: number
 }
 
-function ButtonDelete({setIsMatch, setCatchId, id}: props) {
+
+
+function ButtonDelete({setIsMatch, id}: props) {
+
+  const {setCatchId} = ThemProvider();
   return (
     <button
       className=" cursor-pointer px-2 hover:bg-green-300 hover:text-white"

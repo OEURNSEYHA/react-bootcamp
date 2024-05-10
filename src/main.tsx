@@ -1,14 +1,13 @@
-import React from 'react'
-import ReactDOM from 'react-dom/client'
-import App from './App.tsx'
-import './index.css'
-import ThemContextProvider from './utils/ThemProvider.tsx'
+import React from "react";
+import ReactDOM from "react-dom/client";
+import App from "./App.tsx";
+import "./index.css";
+import ThemContextProvider from "./utils/ThemProvider.tsx";
 
-ReactDOM.createRoot(document.getElementById('root')!).render(
+ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
     <ThemContextProvider>
-
-    <App />
+      <App />
     </ThemContextProvider>
-  </React.StrictMode>,
-)
+  </React.StrictMode>
+);

@@ -1,15 +1,17 @@
 import { useState } from "react";
 import { RxCross2 } from "react-icons/rx";
 import { dataType } from "../pages/ChromeDownload";
+import { ThemProvider } from "../utils/ThemProvider";
 interface PopupProps {
   props: {
     setIsPopup: (isPopup: boolean) => void;
     addNewItem: (newItem: dataType) => void;
-    data: dataType[];
+    // data: dataType[];
   };
 }
 
 export default function Popup({ props }: PopupProps): JSX.Element {
+  const {data} = ThemProvider();
   const [creator, setCreator] = useState<string>("");
   const [fileName, setFileName] = useState<string>("");
   const [fileImage, setFileImage] = useState<string>("");
@@ -51,7 +53,7 @@ export default function Popup({ props }: PopupProps): JSX.Element {
   };
 
   const handleSubmit = () => {
-    const data = props.data;
+    
     const id = data.length + 1;
     if (creator === "") {
       alert("please input creator");

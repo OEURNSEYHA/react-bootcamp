@@ -1,28 +1,21 @@
 import { RxCross2 } from "react-icons/rx";
-import { dataType } from "../pages/ChromeDownload";
+
 import { useState } from "react";
+import { ThemProvider } from "../utils/ThemProvider";
 interface PopupProps {
-  setIsMatch: (isMatch: boolean) => void;
+ 
   deleteItem: (index: number, deleteFilename: string, fileName: string) => void;
-  data: dataType[];
-  id: number | undefined;
 }
 
 export default function PopupConfirmDelete({
-  setIsMatch,
   deleteItem,
-  data,
-  id,
 }: PopupProps): JSX.Element {
+  const { catchId, data, setIsMatch } = ThemProvider();
   const [fileNameDelete, setFileNameDelete] = useState<string>("");
-  const filteredFileNames = data.filter(
-    (item) => item.id === id
-  );
-
+  const filteredFileNames = data.filter((item) => item.id === catchId);
+console.log(catchId)
   const fileName: string | "" =
-    filteredFileNames.length > 0 ? filteredFileNames[0].fileName :  "";
-    console.log(fileName)
-    console.log(id)
+    filteredFileNames.length > 0 ? filteredFileNames[0].fileName : "";
 
   return (
     <>
@@ -68,7 +61,8 @@ export default function PopupConfirmDelete({
             <button
               type="button"
               onClick={() => {
-                id !== undefined && deleteItem(id, fileNameDelete, fileName);
+                catchId !== undefined &&
+                  deleteItem(catchId, fileNameDelete, fileName);
                 setIsMatch(false);
               }}
               className=" bg-red-400 px-3 py-1 rounded-[25px] text-white"
