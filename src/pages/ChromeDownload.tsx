@@ -2,8 +2,9 @@ import { useState } from "react";
 import Popup from "../component/Popup";
 import PopupConfirmDelete from "../component/PopupConfirmDelete";
 import CardList from "../component/organisms/card-chrom-dowload/CardList";
-import Header from "../component/templates/Header";
+
 import PopupEdit from "../component/PopupEdit";
+import { ThemProvider } from "../utils/ThemProvider";
 export interface dataType {
   id: number;
   creator: string;
@@ -20,25 +21,26 @@ export interface verifyDelete {
 // creator > 3 charater
 
 function ChromeDownload() {
-
+  const {data, setData , search } = ThemProvider();
+  
   const [isPopup, setIsPopup] = useState<boolean>(false);
   const [isMatch, setIsMatch] = useState<boolean>(false);
-  const [datas, setDatas] = useState<dataType[]>([]);
-  const [search, setSearchData] = useState<string>("");
+
+ 
   const [catchId, setCatchId] = useState<number | undefined>();
   const [isUpdate, setIsUpdate] = useState<boolean>(false);
   const [isPopupEdit, setIsPopupEdit] = useState<boolean>(false);
   
   const addNewItem = (newItem: dataType) => {
-    const newId = datas.length + 1;
+    const newId = data.length + 1;
     const newItemWithId = { ...newItem, id: newId };
-    setDatas([...datas, newItemWithId]);
+    setData([...data, newItemWithId]);
   };
 
-  console.log(datas);
+
   // function to handle location filter using search value
   const filterData = () => {
-    let filtered = datas;
+    let filtered = data;
     // filter location
     if (search !== "") {
       filtered = filtered.filter((item) =>
@@ -60,12 +62,12 @@ function ChromeDownload() {
       alert("incorrect delete filename");
       return;
     }
-    const updatedDatas = datas.filter((i) => i.id !== index);
-    setDatas(updatedDatas);
+    const updatedDatas = data.filter((i) => i.id !== index);
+    setData(updatedDatas);
   };
   return (
     <>
-      <Header setSearchData={setSearchData} />
+  
       <section className="wrap-page">
         <div style={{ display: "flex" }}>
           <div
@@ -117,7 +119,7 @@ function ChromeDownload() {
           props={{
             setIsPopup: setIsPopup,
             addNewItem: addNewItem,
-            data: datas,
+            data: data,
           }}
         />
       )}
@@ -125,12 +127,12 @@ function ChromeDownload() {
         <PopupConfirmDelete
           setIsMatch={setIsMatch}
           deleteItem={deleteItem}
-          data={datas}
+          data={data}
           id={catchId}
         />
       )}
 
-      {isPopupEdit && <PopupEdit setIsPopupEdit={setIsPopupEdit} data={datas} setData= {setDatas} id={catchId} />}
+      {isPopupEdit && <PopupEdit setIsPopupEdit={setIsPopupEdit} data={data} setData= {setData} id={catchId} />}
     </>
   );
 }
