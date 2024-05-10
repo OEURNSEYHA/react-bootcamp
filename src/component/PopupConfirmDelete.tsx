@@ -18,7 +18,7 @@ export default function PopupConfirmDelete({
   const filteredFileNames = data.filter(
     (item) => item.id === id
   );
-  console.log(filteredFileNames)
+
   const fileName: string | "" =
     filteredFileNames.length > 0 ? filteredFileNames[0].fileName :  "";
     console.log(fileName)
