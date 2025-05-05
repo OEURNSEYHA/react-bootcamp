@@ -35,6 +35,8 @@ function ChromeDownload() {
     setDatas([...datas, newItemWithId]);
   };
 
+
+  
   console.log(datas);
   // function to handle location filter using search value
   const filterData = () => {
