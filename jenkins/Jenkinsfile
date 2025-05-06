@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    environment {
+        NODE_ENV = 'production'
+    }
+
     stages {
         stage('Install Dependencies') {
             steps {
@@ -13,6 +17,20 @@ pipeline {
                 sh 'npm run build'
             }
         }
+
+        stage('Archive Build') {
+            steps {
+                archiveArtifacts artifacts: 'build/**', allowEmptyArchive: true
+            }
+        }
+    }
+
+    post {
+        success {
+            echo '✅ Build completed successfully!'
+        }
+        failure {
+            echo '❌ Build failed.'
+        }
     }
 }
-
