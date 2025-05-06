@@ -20,7 +20,7 @@ pipeline {
 
         stage('Archive Build') {
             steps {
-                archiveArtifacts artifacts: 'build/**', allowEmptyArchive: true
+                archiveArtifacts artifacts: 'dist/**', allowEmptyArchive: true
             }
         }
     }

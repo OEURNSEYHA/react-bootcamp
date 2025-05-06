@@ -13,7 +13,7 @@ export default function PopupEdit({
   setIsPopupEdit,
   data,
   id,
-  setData,
+  // setData,
 }: popupType): JSX.Element {
   // State for form inputs
   const [creator, setCreator] = useState<string>("");
@@ -32,21 +32,21 @@ export default function PopupEdit({
 }, [selectedItem]);
 
   // If no item found or id is undefined, return null or handle it accordingly
-  if (!selectedItem || id === undefined) {
-    return null; // You can customize the behavior if needed
-  }
+  // if (!selectedItem || id === undefined) {
+  //   return undefined // You can customize the behavior if needed
+  // }
 
   // Function to handle form submission
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     // Update the item with the new values
-    const updatedItem = { ...selectedItem, creator, fileName, fileImage };
+    // const updatedItem = { ...selectedItem, creator, fileName, fileImage };
     // Update the data array with the updated item
-    const updatedData = data.map((item) =>
-      item.id === id ? updatedItem : item
-    );
+    // const updatedData = data.map((item) =>
+    //   item.id === id ? updatedItem : item
+    // );
     // Update the state with the new data
-    setData(updatedData);
+    // setData(updatedData);
     // Close the popup
     setIsPopupEdit(false);
   };
